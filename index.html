@@ -1,0 +1,148 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaborAPP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="auth-container">
+        <div class="auth-header">
+            <h1>Bienvenido a LaborAPP</h1>
+        </div>
+        <div id="auth-toggle-buttons">
+            <button id="show-login-btn" class="auth-toggle-btn active">Iniciar Sesión</button>
+            <button id="show-register-btn" class="auth-toggle-btn">Registrarse</button>
+        </div>
+
+        <div id="login-form-container" class="auth-form-container">
+            <h2>Iniciar Sesión</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" name="login-password" required>
+                </div>
+                <button type="submit" class="auth-button">Ingresar</button>
+                <p id="login-message" class="auth-message"></p>
+            </form>
+        </div>
+
+        <div id="register-form-container" class="auth-form-container" style="display: none;">
+            <h2>Registrarse</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Nombre Completo:</label>
+                    <input type="text" id="register-name" name="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Contraseña:</label>
+                    <input type="password" id="register-password" name="register-password" required>
+                </div>
+                <button type="submit" class="auth-button">Registrar</button>
+                <p id="register-message" class="auth-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-container" style="display: none;">
+        <header>
+            <h1>LaborAPP</h1>
+            <div id="user-info">
+                <span id="logged-in-user-name"></span>
+                <button id="logout-button">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <nav id="app-navigation">
+            <button id="nav-services-btn" class="nav-app-btn active">Buscar Servicios</button>
+            <button id="nav-my-requests-btn" class="nav-app-btn">Mis Solicitudes</button>
+        </nav>
+
+        <div id="app-content-wrapper">
+            <section id="service-search-view">
+                <section id="service-selection">
+                    <h2>Selecciona un Servicio</h2>
+                    <div class="service-buttons">
+                        <button data-service="plomeria">
+                            <img src="assets/images/plumber-icon.png" alt="Plomería Icon">
+                            <span>Plomería</span>
+                        </button>
+                        <button data-service="electricidad">
+                            <img src="assets/images/electrician-icon.png" alt="Electricidad Icon">
+                            <span>Electricidad</span>
+                        </button>
+                        <button data-service="albanileria">
+                            <img src="assets/images/mason-icon.png" alt="Albañilería Icon">
+                            <span>Albañilería</span>
+                        </button>
+                    </div>
+                </section>
+
+                <section id="professionals-list-container">
+                    <h2 id="professionals-list-title">Profesionales Disponibles</h2>
+                    <div id="professionals-list">
+                        <p class="placeholder-text">Selecciona un servicio para ver los profesionales.</p>
+                    </div>
+                </section>
+            </section>
+
+            <section id="my-requests-view" style="display: none;">
+                <h2>Mis Solicitudes de Servicio</h2>
+                <div id="my-requests-list">
+                    <!-- Service requests will be dynamically inserted here -->
+                    <p class="placeholder-text">Aún no has solicitado ningún servicio.</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="professional-detail-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="prof-detail-close-btn">&times;</span>
+                <img id="modal-prof-image" src="/profile-placeholder.png" alt="Imagen del Profesional" class="modal-prof-image-style">
+                <h3 id="modal-prof-name">Nombre del Profesional</h3>
+                <p><strong>Servicio:</strong> <span id="modal-prof-service"></span></p>
+                <p><strong>Rating:</strong> <span id="modal-prof-rating"></span> </p>
+                <p id="modal-prof-description">Descripción detallada del profesional.</p>
+                <p><strong>Tarifa/Hora:</strong> $<span id="modal-prof-rate"></span></p>
+                <button id="open-service-request-modal-button" class="action-button">Solicitar Servicio</button>
+            </div>
+        </div>
+
+        <div id="service-request-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="sr-modal-close-btn">&times;</span>
+                <h3 id="sr-modal-title">Solicitar Servicio</h3>
+                <p>Estás solicitando un servicio a: <strong id="sr-prof-name-display"></strong></p>
+                <form id="service-request-form">
+                    <div class="form-group">
+                        <label for="sr-description">Descripción del Problema/Trabajo:</label>
+                        <textarea id="sr-description" name="sr-description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="sr-address">Dirección del Servicio:</label>
+                        <input type="text" id="sr-address" name="sr-address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sr-datetime">Fecha y Hora Deseadas:</label>
+                        <input type="datetime-local" id="sr-datetime" name="sr-datetime" required>
+                    </div>
+                    <div id="sr-message" class="auth-message" style="min-height: 1.5em;"></div>
+                    <div class="sr-modal-actions">
+                        <button type="submit" id="sr-confirm-button" class="action-button">Confirmar Solicitud</button>
+                        <button type="button" id="sr-cancel-button" class="auth-button secondary-button">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
